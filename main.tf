@@ -17,7 +17,7 @@ module "google_mx" {
 
 module "cloudtrail" {
   source      = "./modules/cloudtrail"
-  home_region = "${var.region}"
+  home_region = "${var.stable_region}"
   bucket_name = "cloudtrail-${var.affix}"
 }
 
@@ -29,27 +29,27 @@ module "billing_alarms" {
 module "tfstate_bucket" {
   source = "./modules/s3_bucket"
   name   = "tfstate-${var.affix}"
-  region = "${var.region}"
+  region = "${var.stable_region}"
 }
 
 module "photos_bucket" {
   source = "./modules/s3_bucket"
   name   = "photos-${var.affix}"
-  region = "${var.region}"
+  region = "${var.stable_region}"
 }
 
 module "backups_bucket" {
   source = "./modules/s3_bucket"
   name   = "backups-${var.affix}"
-  region = "${var.region}"
+  region = "${var.stable_region}"
 }
 
 module "data_volume" {
   source            = "./modules/volume"
   name              = "data"
   size              = 64
-  region            = "${var.region}"
-  availability_zone = "${var.availability_zone}"
+  region            = "${var.stable_region}"
+  availability_zone = "${var.stable_availability_zone}"
 }
 
 module "drawbridge" {
