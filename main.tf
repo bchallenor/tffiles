@@ -54,9 +54,11 @@ module "data_volume" {
 
 module "drawbridge" {
   source = "./modules/drawbridge"
+  region = "${var.local_region}"
 }
 
 module "drawbridge_test" {
   source  = "./modules/drawbridge"
   profile = "test"
+  region  = "${var.stable_region}"
 }
