@@ -2,6 +2,10 @@ provider "aws" {
   region = "us-east-1"
 }
 
+locals {
+  name = "drawbridge${var.profile == "default" ? "" : "-${var.profile}"}"
+}
+
 data "aws_iam_policy_document" "policy" {
   statement {
     actions = [
@@ -40,6 +44,6 @@ data "aws_iam_policy_document" "policy" {
 }
 
 resource "aws_iam_policy" "policy" {
-  name   = "drawbridge${var.profile == "default" ? "" : "-${var.profile}"}"
+  name   = "${local.name}"
   policy = "${data.aws_iam_policy_document.policy.json}"
 }
