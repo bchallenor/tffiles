@@ -51,3 +51,12 @@ module "data_volume" {
   region            = "${var.region}"
   availability_zone = "${var.availability_zone}"
 }
+
+module "drawbridge" {
+  source = "./modules/drawbridge"
+}
+
+module "drawbridge_test" {
+  source  = "./modules/drawbridge"
+  profile = "test"
+}

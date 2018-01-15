@@ -6,15 +6,6 @@ module "ami_builder_policy" {
   source = "./modules/ami_builder_policy"
 }
 
-module "drawbridge_policy" {
-  source = "./modules/drawbridge_policy"
-}
-
-module "drawbridge_test_policy" {
-  source  = "./modules/drawbridge_policy"
-  profile = "test"
-}
-
 module "admin_role" {
   source = "./modules/role"
   name   = "admin"
@@ -44,7 +35,7 @@ module "nano_user" {
     "${module.terraform_policy.arn}",
     "${module.tfstate_bucket.read_policy_arn}",
     "${module.ami_builder_policy.arn}",
-    "${module.drawbridge_test_policy.arn}",
+    "${module.drawbridge_test.policy_arn}",
     "${module.cloud_zone.bind_policy_arn}",
   ]
 }
@@ -54,8 +45,8 @@ module "termux_phone_user" {
   user   = "termux-phone"
 
   policy_arns = [
-    "${module.drawbridge_policy.arn}",
-    "${module.drawbridge_test_policy.arn}",
+    "${module.drawbridge.policy_arn}",
+    "${module.drawbridge_test.policy_arn}",
     "${module.cloud_zone.bind_policy_arn}",
   ]
 }
@@ -65,7 +56,7 @@ module "drawbridge_user" {
   user   = "drawbridge"
 
   policy_arns = [
-    "${module.drawbridge_policy.arn}",
+    "${module.drawbridge.policy_arn}",
     "${module.cloud_zone.bind_policy_arn}",
   ]
 }
