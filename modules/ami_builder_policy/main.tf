@@ -18,6 +18,17 @@ data "aws_iam_policy_document" "policy" {
 
     resources = ["*"]
   }
+
+  statement {
+    actions = [
+      "ec2:CreateTags",
+    ]
+
+    resources = [
+      "arn:aws:ec2:*::snapshot/*",
+      "arn:aws:ec2:*::image/*",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "policy" {
