@@ -46,6 +46,7 @@ module "termux_phone_user" {
 
   policy_arns = [
     "${module.drawbridge.policy_arn}",
+    "${module.drawbridge_x.policy_arn}",
     "${module.drawbridge_test.policy_arn}",
     "${module.cloud_zone.bind_policy_arn}",
   ]

@@ -57,6 +57,12 @@ module "drawbridge" {
   region = "${var.local_region}"
 }
 
+module "drawbridge_x" {
+  source  = "./modules/drawbridge"
+  profile = "x"
+  region  = "${var.local_region}"
+}
+
 module "drawbridge_test" {
   source  = "./modules/drawbridge"
   profile = "test"
