@@ -14,7 +14,7 @@ resource "aws_route53_record" "soa" {
   name    = "${aws_route53_zone.zone.name}"
   type    = "SOA"
   ttl     = "900"
-  records = ["${aws_route53_zone.zone.name_servers.0}. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400"]
+  records = ["${aws_route53_zone.zone.name_servers.0}. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 ${var.negative_ttl}"]
 }
 
 resource "aws_route53_record" "parent_ns" {

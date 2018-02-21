@@ -4,9 +4,10 @@ module "root_zone" {
 }
 
 module "cloud_zone" {
-  source    = "./modules/dns_zone"
-  parent_id = "${module.root_zone.id}"
-  name      = "cloud.${module.root_zone.name}"
+  source       = "./modules/dns_zone"
+  parent_id    = "${module.root_zone.id}"
+  name         = "cloud.${module.root_zone.name}"
+  negative_ttl = 10
 }
 
 module "google_mx" {

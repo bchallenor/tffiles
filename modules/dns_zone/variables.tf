@@ -3,3 +3,7 @@ variable "parent_id" {
 }
 
 variable "name" {}
+
+variable "negative_ttl" {
+  default = 86400
+}
