@@ -69,3 +69,9 @@ module "drawbridge_test" {
   profile = "test"
   region  = "${var.stable_region}"
 }
+
+module "vault_bucket" {
+  source = "./modules/s3_bucket"
+  name   = "vault-${var.affix}"
+  region = "${var.stable_region}"
+}
