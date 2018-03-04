@@ -61,3 +61,12 @@ module "drawbridge_user" {
     "${module.cloud_zone.bind_policy_arn}",
   ]
 }
+
+module "vault_profile" {
+  source = "./modules/instance_profile"
+  name   = "vault"
+
+  policy_arns = [
+    "${module.vault_bucket.write_policy_arn}",
+  ]
+}
