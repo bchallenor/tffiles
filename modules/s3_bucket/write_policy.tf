@@ -6,7 +6,7 @@ resource "aws_iam_policy" "write_policy" {
 data "aws_iam_policy_document" "write_policy" {
   statement {
     actions = [
-      "s3:ListObjects",
+      "s3:ListBucket",
     ]
 
     resources = [
