@@ -1,0 +1,50 @@
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - ${ssh_public_key}
+storage:
+  files:
+    - path: /etc/vault/vault.hcl
+      filesystem: root
+      mode: 0644
+      user:
+        name: root
+      group:
+        name: root
+      contents:
+        inline: |
+          storage "s3" {
+            bucket = "${bucket_name}"
+            region = "${bucket_region}"
+          }
+
+          listener "tcp" {
+            address = "0.0.0.0:8200"
+            tls_disable = 1
+          }
+systemd:
+  units:
+    - name: vault.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Vault
+        After=docker.service
+        Requires=docker.service
+
+        [Service]
+        Type=simple
+        ExecStartPre=/usr/bin/docker pull vault:latest
+        ExecStart=/usr/bin/docker run \
+          --rm \
+          --cap-add IPC_LOCK \
+          --name vault \
+          --volume /etc/vault/vault.hcl:/vault/config/vault.hcl \
+          vault:latest \
+          server
+        ExecStop=/usr/bin/docker stop vault
+        Restart=on-failure
+
+        [Install]
+        WantedBy=multi-user.target

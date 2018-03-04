@@ -75,3 +75,15 @@ module "vault_bucket" {
   name   = "vault-${var.affix}"
   region = "${var.stable_region}"
 }
+
+module "vault_host" {
+  source            = "./modules/vault_host"
+  name              = "vault"
+  region            = "${var.stable_region}"
+  availability_zone = "${var.stable_availability_zone}"
+  bucket_name        = "${module.vault_bucket.id}"
+  profile_name      = "${module.vault_profile.profile_name}"
+  ssh_public_key    = "${var.ssh_public_key}"
+  zone_id           = "${module.cloud_zone.id}"
+  zone_name         = "${module.cloud_zone.name}"
+}
