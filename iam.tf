@@ -61,3 +61,12 @@ module "drawbridge_user" {
     "${module.cloud_zone.bind_policy_arn}",
   ]
 }
+
+module "ami_builder_profile" {
+  source = "./modules/instance_profile"
+  name   = "ami-builder"
+
+  policy_arns = [
+    "${module.ami_builder_policy.arn}",
+  ]
+}
