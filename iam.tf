@@ -35,6 +35,7 @@ module "nano_user" {
     "${module.terraform_policy.arn}",
     "${module.tfstate_bucket.read_policy_arn}",
     "${module.ami_builder_policy.arn}",
+    "${module.drawbridge.policy_arn}",
     "${module.drawbridge_test.policy_arn}",
     "${module.cloud_zone.bind_policy_arn}",
   ]
