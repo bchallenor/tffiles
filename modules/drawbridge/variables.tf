@@ -1,5 +1,2 @@
-variable "profile" {
-  default = "default"
-}
-
+variable "name" {}
 variable "region" {}
