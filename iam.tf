@@ -51,16 +51,6 @@ module "termux_phone_user" {
   ]
 }
 
-module "drawbridge_user" {
-  source = "./modules/user"
-  user   = "drawbridge"
-
-  policy_arns = [
-    "${module.drawbridge.policy_arn}",
-    "${module.cloud_zone.bind_policy_arn}",
-  ]
-}
-
 module "ami_builder_profile" {
   source = "./modules/instance_profile"
   name   = "ami-builder"
