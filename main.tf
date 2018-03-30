@@ -53,9 +53,9 @@ module "data_volume" {
   availability_zone = "${var.stable_availability_zone}"
 }
 
-module "drawbridge" {
+module "drawbridge_dev" {
   source = "./modules/drawbridge"
-  name   = "drawbridge"
+  name   = "dev"
   region = "${var.local_region}"
 }
 
