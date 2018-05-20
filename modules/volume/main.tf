@@ -1,6 +1,4 @@
-provider "aws" {
-  region = "${var.region}"
-}
+provider "aws" {}
 
 resource "aws_ebs_volume" "volume" {
   tags {
