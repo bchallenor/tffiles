@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
 resource "aws_route53_record" "mx" {
   zone_id = "${var.zone_id}"
   name    = "${var.zone_name}"

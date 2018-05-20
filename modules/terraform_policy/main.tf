@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
 resource "aws_iam_policy" "policy" {
   name   = "terraform"
   policy = "${data.aws_iam_policy_document.policy.json}"
