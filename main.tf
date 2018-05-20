@@ -45,14 +45,6 @@ module "backups_bucket" {
   region = "${var.stable_region}"
 }
 
-module "data_volume" {
-  source            = "./modules/volume"
-  name              = "data"
-  size              = 64
-  region            = "${var.stable_region}"
-  availability_zone = "${var.stable_availability_zone}"
-}
-
 module "drawbridge_dev" {
   source = "./modules/drawbridge"
   name   = "dev"
