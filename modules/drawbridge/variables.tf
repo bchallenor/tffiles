@@ -1,2 +1,1 @@
 variable "name" {}
-variable "region" {}

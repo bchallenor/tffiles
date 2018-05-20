@@ -1,3 +1,17 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
+provider "aws" {
+  alias  = "stable"
+  region = "${var.stable_region}"
+}
+
+provider "aws" {
+  alias  = "local"
+  region = "${var.local_region}"
+}
+
 module "root_zone" {
   source = "./modules/dns_zone"
   name   = "${var.domain}."
@@ -18,8 +32,11 @@ module "google_mx" {
 
 module "cloudtrail" {
   source      = "./modules/cloudtrail"
-  home_region = "${var.stable_region}"
   bucket_name = "cloudtrail-${var.affix}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
 }
 
 module "billing_alarms" {
@@ -30,29 +47,44 @@ module "billing_alarms" {
 module "tfstate_bucket" {
   source = "./modules/s3_bucket"
   name   = "tfstate-${var.affix}"
-  region = "${var.stable_region}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
 }
 
 module "photos_bucket" {
   source = "./modules/s3_bucket"
   name   = "photos-${var.affix}"
-  region = "${var.stable_region}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
 }
 
 module "backups_bucket" {
   source = "./modules/s3_bucket"
   name   = "backups-${var.affix}"
-  region = "${var.stable_region}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
 }
 
 module "drawbridge_dev" {
   source = "./modules/drawbridge"
   name   = "dev"
-  region = "${var.local_region}"
+
+  providers = {
+    "aws" = "aws.local"
+  }
 }
 
 module "drawbridge_test" {
   source = "./modules/drawbridge"
   name   = "test"
-  region = "${var.stable_region}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
 }

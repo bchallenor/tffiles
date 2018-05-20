@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
 resource "aws_sns_topic" "billing" {
   name = "NotifyMe"
 }

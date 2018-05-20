@@ -1,11 +1,12 @@
-provider "aws" {
-  region = "${var.home_region}"
-}
+provider "aws" {}
 
 module "bucket" {
   source = "../s3_bucket"
   name   = "${var.bucket_name}"
-  region = "${var.home_region}"
+
+  providers = {
+    "aws" = "aws"
+  }
 }
 
 data "aws_caller_identity" "self" {}
