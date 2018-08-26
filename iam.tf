@@ -28,6 +28,9 @@ module "laptop_user" {
     "${module.admin_role.assume_policy_arn}",
     "${module.terraform_policy.arn}",
     "${module.tfstate_bucket.read_policy_arn}",
+    "${module.drawbridge_dev.policy_arn}",
+    "${module.drawbridge_test.policy_arn}",
+    "${module.cloud_zone.bind_policy_arn}",
   ]
 }
 
