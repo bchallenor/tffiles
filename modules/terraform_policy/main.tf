@@ -17,6 +17,7 @@ data "aws_iam_policy_document" "policy" {
   statement {
     actions = [
       "cloudtrail:DescribeTrails",
+      "cloudtrail:GetEventSelectors",
       "cloudtrail:GetTrailStatus",
       "cloudtrail:ListTags",
     ]
