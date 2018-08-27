@@ -35,6 +35,15 @@ module "laptop_user" {
   ]
 }
 
+module "laptop_annex_user" {
+  source = "./modules/user"
+  user   = "laptop-annex"
+
+  policy_arns = [
+    "${module.annex_photos_bucket.write_policy_arn}",
+  ]
+}
+
 module "nano_user" {
   source = "./modules/user"
   user   = "nano"
