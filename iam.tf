@@ -31,6 +31,7 @@ module "laptop_user" {
     "${module.drawbridge_dev.policy_arn}",
     "${module.drawbridge_test.policy_arn}",
     "${module.cloud_zone.bind_policy_arn}",
+    "${module.annex_photos_bucket.read_policy_arn}",
   ]
 }
 

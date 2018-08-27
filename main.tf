@@ -71,6 +71,15 @@ module "backups_bucket" {
   }
 }
 
+module "annex_photos_bucket" {
+  source = "./modules/s3_bucket"
+  name   = "annex-photos-${var.affix}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
+
 module "drawbridge_dev" {
   source = "./modules/drawbridge"
   name   = "dev"
