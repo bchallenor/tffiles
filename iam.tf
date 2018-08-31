@@ -32,6 +32,7 @@ module "laptop_user" {
     "${module.drawbridge_test.policy_arn}",
     "${module.cloud_zone.bind_policy_arn}",
     "${module.annex_photos_bucket.read_policy_arn}",
+    "${module.machine_images_bucket.read_policy_arn}",
   ]
 }
 
@@ -77,5 +78,6 @@ module "ami_builder_profile" {
 
   policy_arns = [
     "${module.ami_builder_policy.arn}",
+    "${module.machine_images_bucket.write_policy_arn}",
   ]
 }

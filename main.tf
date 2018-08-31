@@ -80,6 +80,15 @@ module "annex_photos_bucket" {
   }
 }
 
+module "machine_images_bucket" {
+  source = "./modules/s3_bucket"
+  name   = "machine-images-${var.affix}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
+
 module "drawbridge_dev" {
   source = "./modules/drawbridge"
   name   = "dev"
