@@ -25,6 +25,7 @@ module "laptop_user" {
 
   policy_arns = [
     "${module.self_management_policy.arn}",
+    "${module.cloudtrail.bucket_read_policy_arn}",
     "${module.admin_role.assume_policy_arn}",
     "${module.terraform_policy.arn}",
     "${module.tfstate_bucket.read_policy_arn}",
@@ -50,6 +51,7 @@ module "nano_user" {
 
   policy_arns = [
     "${module.self_management_policy.arn}",
+    "${module.cloudtrail.bucket_read_policy_arn}",
     "${module.admin_role.assume_policy_arn}",
     "${module.terraform_policy.arn}",
     "${module.tfstate_bucket.read_policy_arn}",
