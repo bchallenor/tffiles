@@ -6,6 +6,7 @@ resource "aws_iam_policy" "write_policy" {
 data "aws_iam_policy_document" "write_policy" {
   statement {
     actions = [
+      "s3:GetBucketLocation",
       "s3:ListBucket",
     ]
 
