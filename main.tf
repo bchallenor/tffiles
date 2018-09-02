@@ -89,6 +89,16 @@ module "machine_images_bucket" {
   }
 }
 
+module "ami_importer" {
+  source      = "./modules/ami_importer"
+  name        = "machine-images-ami-importer"
+  bucket_name = "${module.machine_images_bucket.id}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
+
 module "drawbridge_dev" {
   source = "./modules/drawbridge"
   name   = "dev"
