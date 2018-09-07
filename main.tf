@@ -80,22 +80,41 @@ module "annex_photos_bucket" {
   }
 }
 
-module "machine_images_bucket" {
+module "artifacts_bucket_stable" {
   source = "./modules/s3_bucket"
-  name   = "machine-images-${var.affix}"
+  name   = "artifacts-stable-${var.affix}"
 
   providers = {
     "aws" = "aws.stable"
   }
 }
 
-module "ami_importer" {
+module "artifacts_bucket_local" {
+  source = "./modules/s3_bucket"
+  name   = "artifacts-local-${var.affix}"
+
+  providers = {
+    "aws" = "aws.local"
+  }
+}
+
+module "ami_importer_stable" {
   source      = "./modules/ami_importer"
-  name        = "machine-images-ami-importer"
-  bucket_name = "${module.machine_images_bucket.id}"
+  name        = "ami-importer-stable"
+  bucket_name = "${module.artifacts_bucket_stable.id}"
 
   providers = {
     "aws" = "aws.stable"
+  }
+}
+
+module "ami_importer_local" {
+  source      = "./modules/ami_importer"
+  name        = "ami-importer-local"
+  bucket_name = "${module.artifacts_bucket_local.id}"
+
+  providers = {
+    "aws" = "aws.local"
   }
 }
 
