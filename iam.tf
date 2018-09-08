@@ -82,5 +82,7 @@ module "ami_builder_profile" {
     "${module.ami_builder_policy.arn}",
     "${module.artifacts_bucket_stable.write_policy_arn}",
     "${module.artifacts_bucket_local.write_policy_arn}",
+    "${module.registry_stable.push_policy_arn}",
+    "${module.registry_local.push_policy_arn}",
   ]
 }
