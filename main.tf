@@ -1,15 +1,22 @@
 provider "aws" {
-  region = "us-east-1"
+  region  = "us-east-1"
+  version = "~> 1.33"
 }
 
 provider "aws" {
-  alias  = "stable"
-  region = "${var.stable_region}"
+  alias   = "stable"
+  region  = "${var.stable_region}"
+  version = "~> 1.33"
 }
 
 provider "aws" {
-  alias  = "local"
-  region = "${var.local_region}"
+  alias   = "local"
+  region  = "${var.local_region}"
+  version = "~> 1.33"
+}
+
+provider "archive" {
+  version = "~> 1.1"
 }
 
 module "root_zone" {
