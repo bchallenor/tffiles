@@ -125,6 +125,36 @@ module "ami_importer_local" {
   }
 }
 
+module "registry_stable" {
+  source = "./modules/ecr_registry"
+
+  name = "stable"
+
+  repos = [
+    "nix-build/s3",
+    "nix-build/ecr",
+  ]
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
+
+module "registry_local" {
+  source = "./modules/ecr_registry"
+
+  name = "local"
+
+  repos = [
+    "nix-build/s3",
+    "nix-build/ecr",
+  ]
+
+  providers = {
+    "aws" = "aws.local"
+  }
+}
+
 module "drawbridge_dev" {
   source = "./modules/drawbridge"
   name   = "dev"
