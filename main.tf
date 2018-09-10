@@ -155,6 +155,19 @@ module "registry_local" {
   }
 }
 
+module "batch_env_local" {
+  source = "./modules/batch_env"
+
+  name      = "local"
+  max_vcpus = 8
+
+  spotfleet_service_linked_role_arn = "${aws_iam_service_linked_role.spotfleet.arn}"
+
+  providers = {
+    "aws" = "aws.local"
+  }
+}
+
 module "drawbridge_dev" {
   source = "./modules/drawbridge"
   name   = "dev"
