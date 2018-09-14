@@ -4,7 +4,10 @@ variable "spot_price" {}
 variable "availability_zone" {}
 variable "instance_profile_name" {}
 variable "root_volume_size" {}
-variable "persistent_volume_id" {}
 variable "security_group_id" {}
 variable "zone_id" {}
 variable "zone_name" {}
+
+variable "persistent_volume_ids" {
+  type = "list"
+}

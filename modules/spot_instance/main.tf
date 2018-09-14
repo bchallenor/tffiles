@@ -40,9 +40,10 @@ data "aws_ami" "ami" {
 }
 
 resource "aws_volume_attachment" "persistent" {
-  device_name = "/dev/xvdp"
-  volume_id   = "${var.persistent_volume_id}"
+  device_name = "/dev/xvd${substr("pqr", count.index, 1)}"
+  volume_id   = "${element(var.persistent_volume_ids, count.index)}"
   instance_id = "${aws_spot_instance_request.instance.spot_instance_id}"
+  count       = "${length(var.persistent_volume_ids)}"
 }
 
 resource "aws_route53_record" "cname" {
