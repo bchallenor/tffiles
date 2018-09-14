@@ -173,6 +173,17 @@ module "drawbridge_test" {
   }
 }
 
+module "jenkins_secrets_volume" {
+  source            = "./modules/volume"
+  name              = "jenkins-secrets"
+  size              = 1
+  availability_zone = "${var.stable_availability_zone}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
+
 module "jenkins_volume" {
   source            = "./modules/volume"
   name              = "jenkins"
@@ -197,6 +208,7 @@ module "jenkins_instance" {
   zone_name             = "${module.cloud_zone.name}"
 
   persistent_volume_ids = [
+    "${module.jenkins_secrets_volume.id}",
     "${module.jenkins_volume.id}",
   ]
 
