@@ -86,3 +86,15 @@ module "ami_builder_profile" {
     "${module.registry_local.push_policy_arn}",
   ]
 }
+
+module "jenkins_profile" {
+  source = "./modules/instance_profile"
+  name   = "jenkins"
+
+  policy_arns = [
+    "${module.artifacts_bucket_stable.write_policy_arn}",
+    "${module.artifacts_bucket_local.write_policy_arn}",
+    "${module.registry_stable.push_policy_arn}",
+    "${module.registry_local.push_policy_arn}",
+  ]
+}

@@ -12,6 +12,8 @@ resource "aws_spot_instance_request" "instance" {
   availability_zone      = "${var.availability_zone}"
   vpc_security_group_ids = ["${var.security_group_id}"]
 
+  iam_instance_profile = "${var.instance_profile_name}"
+
   root_block_device {
     volume_size           = "${var.root_volume_size}"
     volume_type           = "gp2"

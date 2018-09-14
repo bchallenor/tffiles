@@ -2,6 +2,7 @@ variable "name" {}
 variable "instance_type" {}
 variable "spot_price" {}
 variable "availability_zone" {}
+variable "instance_profile_name" {}
 variable "root_volume_size" {}
 variable "persistent_volume_id" {}
 variable "security_group_id" {}

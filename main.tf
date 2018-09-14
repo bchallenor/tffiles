@@ -185,16 +185,17 @@ module "jenkins_volume" {
 }
 
 module "jenkins_instance" {
-  source               = "./modules/spot_instance"
-  name                 = "jenkins"
-  instance_type        = "t3.medium"
-  spot_price           = "0.018"
-  availability_zone    = "${var.stable_availability_zone}"
-  root_volume_size     = 20
-  persistent_volume_id = "${module.jenkins_volume.id}"
-  security_group_id    = "${module.drawbridge_test.security_group_id}"
-  zone_id              = "${module.cloud_zone.id}"
-  zone_name            = "${module.cloud_zone.name}"
+  source                = "./modules/spot_instance"
+  name                  = "jenkins"
+  instance_type         = "t3.medium"
+  spot_price            = "0.018"
+  availability_zone     = "${var.stable_availability_zone}"
+  instance_profile_name = "${module.jenkins_profile.profile_name}"
+  root_volume_size      = 20
+  persistent_volume_id  = "${module.jenkins_volume.id}"
+  security_group_id     = "${module.drawbridge_test.security_group_id}"
+  zone_id               = "${module.cloud_zone.id}"
+  zone_name             = "${module.cloud_zone.name}"
 
   providers = {
     "aws" = "aws.stable"
