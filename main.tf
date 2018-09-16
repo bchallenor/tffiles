@@ -172,3 +172,11 @@ module "drawbridge_test" {
     "aws" = "aws.stable"
   }
 }
+
+module "intranet_stable" {
+  source = "./modules/intranet"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
