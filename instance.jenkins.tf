@@ -28,14 +28,18 @@ module "jenkins_instance" {
   availability_zone     = "${var.stable_availability_zone}"
   instance_profile_name = "${module.jenkins_profile.profile_name}"
   root_volume_size      = 20
-  security_group_id     = "${module.drawbridge_test.security_group_id}"
-  zone_id               = "${module.cloud_zone.id}"
-  zone_name             = "${module.cloud_zone.name}"
+
+  security_group_ids = [
+    "${module.drawbridge_test.security_group_id}",
+  ]
 
   persistent_volume_ids = [
     "${module.jenkins_secrets_volume.id}",
     "${module.jenkins_volume.id}",
   ]
+
+  zone_id   = "${module.cloud_zone.id}"
+  zone_name = "${module.cloud_zone.name}"
 
   providers = {
     "aws" = "aws.stable"

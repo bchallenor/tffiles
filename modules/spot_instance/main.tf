@@ -10,7 +10,7 @@ resource "aws_spot_instance_request" "instance" {
   wait_for_fulfillment            = true
 
   availability_zone      = "${var.availability_zone}"
-  vpc_security_group_ids = ["${var.security_group_id}"]
+  vpc_security_group_ids = ["${var.security_group_ids}"]
 
   iam_instance_profile = "${var.instance_profile_name}"
 

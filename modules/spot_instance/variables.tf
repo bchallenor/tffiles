@@ -8,7 +8,11 @@ variable "instance_profile_name" {
 }
 
 variable "root_volume_size" {}
-variable "security_group_id" {}
+
+variable "security_group_ids" {
+  type = "list"
+}
+
 variable "zone_id" {}
 variable "zone_name" {}
 
