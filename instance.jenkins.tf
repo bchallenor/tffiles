@@ -30,7 +30,7 @@ module "jenkins_instance" {
   root_volume_size      = 20
 
   security_group_ids = [
-    "${module.drawbridge_test.security_group_id}",
+    "${module.intranet_stable.intra_security_group_id}",
   ]
 
   persistent_volume_ids = [

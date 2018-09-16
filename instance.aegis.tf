@@ -18,6 +18,7 @@ module "aegis_instance" {
   root_volume_size  = 4
 
   security_group_ids = [
+    "${module.intranet_stable.vpn_security_group_id}",
     "${module.drawbridge_test.security_group_id}",
   ]
 
