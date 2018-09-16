@@ -15,7 +15,7 @@ module "aegis_instance" {
   instance_type     = "t3.nano"
   spot_price        = "0.003"
   availability_zone = "${var.stable_availability_zone}"
-  root_volume_size  = 2
+  root_volume_size  = 4
 
   security_group_ids = [
     "${module.drawbridge_test.security_group_id}",
