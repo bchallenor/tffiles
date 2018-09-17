@@ -46,6 +46,7 @@ resource "aws_volume_attachment" "persistent" {
   count       = "${length(var.persistent_volume_ids)}"
 }
 
+# Use CNAME for public as it can be resolved inside the VPC to an internal IP
 resource "aws_route53_record" "cname" {
   zone_id = "${var.zone_id}"
   name    = "${var.name}.${var.zone_name}"
