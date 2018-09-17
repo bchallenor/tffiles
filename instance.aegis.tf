@@ -10,10 +10,9 @@ module "aegis_secrets_volume" {
 }
 
 module "aegis_instance" {
-  source            = "./modules/spot_instance"
+  source            = "./modules/instance"
   name              = "aegis"
   instance_type     = "t3.nano"
-  spot_price        = "0.003"
   availability_zone = "${var.stable_availability_zone}"
   root_volume_size  = 4
 
