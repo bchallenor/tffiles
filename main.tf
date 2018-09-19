@@ -180,3 +180,13 @@ module "intranet_stable" {
     "aws" = "aws.stable"
   }
 }
+
+module "vpc_stable" {
+  source            = "./modules/vpc"
+  name              = "stable"
+  availability_zone = "${var.stable_availability_zone}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
