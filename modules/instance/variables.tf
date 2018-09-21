@@ -1,6 +1,7 @@
 variable "name" {}
 variable "instance_type" {}
 variable "availability_zone" {}
+variable "subnet_id" {}
 
 variable "instance_profile_name" {
   default = ""

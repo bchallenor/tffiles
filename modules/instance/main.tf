@@ -5,6 +5,7 @@ resource "aws_instance" "instance" {
   instance_type = "${var.instance_type}"
 
   availability_zone      = "${var.availability_zone}"
+  subnet_id              = "${var.subnet_id}"
   vpc_security_group_ids = ["${var.security_group_ids}"]
 
   iam_instance_profile = "${var.instance_profile_name}"
@@ -52,11 +53,19 @@ resource "aws_network_interface_attachment" "persistent" {
   count                = "${length(var.persistent_network_interface_ids)}"
 }
 
-# Use CNAME for public as it can be resolved inside the VPC to an internal IP
-resource "aws_route53_record" "cname" {
+resource "aws_route53_record" "a" {
   zone_id = "${var.zone_id}"
   name    = "${var.name}.${var.zone_name}"
-  type    = "CNAME"
+  type    = "A"
   ttl     = "60"
-  records = ["${aws_instance.instance.public_dns}"]
+  records = ["${aws_instance.instance.public_ip}"]
+  count   = "${aws_instance.instance.public_ip != "" ? 1 : 0}"
+}
+
+resource "aws_route53_record" "aaaa" {
+  zone_id = "${var.zone_id}"
+  name    = "${var.name}.${var.zone_name}"
+  type    = "AAAA"
+  ttl     = "60"
+  records = ["${aws_instance.instance.ipv6_addresses.0}"]
 }

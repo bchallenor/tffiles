@@ -26,11 +26,12 @@ module "jenkins_instance" {
   instance_type         = "t3.medium"
   spot_price            = "0.018"
   availability_zone     = "${var.stable_availability_zone}"
+  subnet_id             = "${module.vpc_stable.private_subnet_id}"
   instance_profile_name = "${module.jenkins_profile.profile_name}"
   root_volume_size      = 20
 
   security_group_ids = [
-    "${module.intranet_stable.intra_security_group_id}",
+    "${module.vpc_stable.vpn_target_security_group_id}",
   ]
 
   persistent_volume_ids = [
