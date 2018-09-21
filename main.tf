@@ -184,12 +184,3 @@ module "drawbridge_dev" {
     "aws" = "aws.local"
   }
 }
-
-module "drawbridge_test" {
-  source = "./modules/drawbridge"
-  name   = "test"
-
-  providers = {
-    "aws" = "aws.stable"
-  }
-}
