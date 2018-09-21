@@ -45,6 +45,13 @@ resource "aws_volume_attachment" "persistent" {
   count       = "${length(var.persistent_volume_ids)}"
 }
 
+resource "aws_network_interface_attachment" "persistent" {
+  device_index         = "${1 + count.index}"
+  network_interface_id = "${element(var.persistent_network_interface_ids, count.index)}"
+  instance_id          = "${aws_instance.instance.id}"
+  count                = "${length(var.persistent_network_interface_ids)}"
+}
+
 # Use CNAME for public as it can be resolved inside the VPC to an internal IP
 resource "aws_route53_record" "cname" {
   zone_id = "${var.zone_id}"

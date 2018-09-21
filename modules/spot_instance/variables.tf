@@ -20,3 +20,8 @@ variable "persistent_volume_ids" {
   type    = "list"
   default = []
 }
+
+variable "persistent_network_interface_ids" {
+  type    = "list"
+  default = []
+}
