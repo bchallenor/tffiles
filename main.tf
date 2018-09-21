@@ -155,6 +155,16 @@ module "registry_local" {
   }
 }
 
+module "drawbridge_stable" {
+  source = "./modules/drawbridge"
+  name   = "stable"
+  vpc_id = "${module.vpc_stable.vpc_id}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
+
 module "drawbridge_dev" {
   source = "./modules/drawbridge"
   name   = "dev"
