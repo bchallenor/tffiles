@@ -183,14 +183,6 @@ module "drawbridge_test" {
   }
 }
 
-module "intranet_stable" {
-  source = "./modules/intranet"
-
-  providers = {
-    "aws" = "aws.stable"
-  }
-}
-
 module "vpc_stable" {
   source              = "./modules/vpc"
   name                = "stable"
