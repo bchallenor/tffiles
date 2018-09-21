@@ -27,6 +27,10 @@ resource "aws_spot_instance_request" "instance" {
   timeouts {
     create = "5m"
   }
+
+  tags {
+    Name = "${var.name}"
+  }
 }
 
 data "aws_ami" "ami" {
