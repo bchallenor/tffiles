@@ -192,9 +192,10 @@ module "intranet_stable" {
 }
 
 module "vpc_stable" {
-  source            = "./modules/vpc"
-  name              = "stable"
-  availability_zone = "${var.stable_availability_zone}"
+  source              = "./modules/vpc"
+  name                = "stable"
+  availability_zone   = "${var.stable_availability_zone}"
+  vpn_ipv6_cidr_block = "fd00::/64"
 
   providers = {
     "aws" = "aws.stable"

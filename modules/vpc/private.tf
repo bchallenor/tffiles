@@ -13,6 +13,16 @@ resource "aws_subnet" "private" {
   }
 }
 
+resource "aws_network_interface" "private_vpn_server" {
+  subnet_id = "${aws_subnet.private.id}"
+
+  source_dest_check = false
+
+  tags {
+    Name = "${var.name}-private-vpn-server"
+  }
+}
+
 resource "aws_egress_only_internet_gateway" "private" {
   vpc_id = "${aws_vpc.default.id}"
 }
@@ -34,4 +44,10 @@ resource "aws_route" "private_ipv6_gateway" {
   route_table_id              = "${aws_route_table.private.id}"
   destination_ipv6_cidr_block = "::/0"
   egress_only_gateway_id      = "${aws_egress_only_internet_gateway.private.id}"
+}
+
+resource "aws_route" "private_vpn_server" {
+  route_table_id              = "${aws_route_table.private.id}"
+  destination_ipv6_cidr_block = "${var.vpn_ipv6_cidr_block}"
+  network_interface_id        = "${aws_network_interface.private_vpn_server.id}"
 }
