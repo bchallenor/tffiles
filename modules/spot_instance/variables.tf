@@ -17,5 +17,6 @@ variable "zone_id" {}
 variable "zone_name" {}
 
 variable "persistent_volume_ids" {
-  type = "list"
+  type    = "list"
+  default = []
 }
