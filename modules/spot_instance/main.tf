@@ -10,6 +10,7 @@ resource "aws_spot_instance_request" "instance" {
   wait_for_fulfillment            = true
 
   availability_zone      = "${var.availability_zone}"
+  subnet_id              = "${var.subnet_id}"
   vpc_security_group_ids = ["${var.security_group_ids}"]
 
   iam_instance_profile = "${var.instance_profile_name}"
@@ -26,6 +27,10 @@ resource "aws_spot_instance_request" "instance" {
 
   timeouts {
     create = "5m"
+  }
+
+  tags {
+    Name = "${var.name}"
   }
 }
 
@@ -46,11 +51,26 @@ resource "aws_volume_attachment" "persistent" {
   count       = "${length(var.persistent_volume_ids)}"
 }
 
-# Use CNAME for public as it can be resolved inside the VPC to an internal IP
-resource "aws_route53_record" "cname" {
+resource "aws_network_interface_attachment" "persistent" {
+  device_index         = "${1 + count.index}"
+  network_interface_id = "${element(var.persistent_network_interface_ids, count.index)}"
+  instance_id          = "${aws_spot_instance_request.instance.spot_instance_id}"
+  count                = "${length(var.persistent_network_interface_ids)}"
+}
+
+resource "aws_route53_record" "a" {
   zone_id = "${var.zone_id}"
   name    = "${var.name}.${var.zone_name}"
-  type    = "CNAME"
+  type    = "A"
   ttl     = "60"
-  records = ["${aws_spot_instance_request.instance.public_dns}"]
+  records = ["${aws_spot_instance_request.instance.public_ip}"]
+  count   = "${aws_spot_instance_request.instance.public_ip != "" ? 1 : 0}"
+}
+
+resource "aws_route53_record" "aaaa" {
+  zone_id = "${var.zone_id}"
+  name    = "${var.name}.${var.zone_name}"
+  type    = "AAAA"
+  ttl     = "60"
+  records = ["${aws_spot_instance_request.instance.ipv6_addresses.0}"]
 }

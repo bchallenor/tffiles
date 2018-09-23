@@ -155,28 +155,32 @@ module "registry_local" {
   }
 }
 
+module "vpc_stable" {
+  source              = "./modules/vpc"
+  name                = "stable"
+  availability_zone   = "${var.stable_availability_zone}"
+  vpn_ipv6_cidr_block = "fd00::/64"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
+
+module "drawbridge_stable" {
+  source = "./modules/drawbridge"
+  name   = "stable"
+  vpc_id = "${module.vpc_stable.vpc_id}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
+
 module "drawbridge_dev" {
   source = "./modules/drawbridge"
   name   = "dev"
 
   providers = {
     "aws" = "aws.local"
-  }
-}
-
-module "drawbridge_test" {
-  source = "./modules/drawbridge"
-  name   = "test"
-
-  providers = {
-    "aws" = "aws.stable"
-  }
-}
-
-module "intranet_stable" {
-  source = "./modules/intranet"
-
-  providers = {
-    "aws" = "aws.stable"
   }
 }

@@ -2,6 +2,7 @@ variable "name" {}
 variable "instance_type" {}
 variable "spot_price" {}
 variable "availability_zone" {}
+variable "subnet_id" {}
 
 variable "instance_profile_name" {
   default = ""
@@ -17,5 +18,11 @@ variable "zone_id" {}
 variable "zone_name" {}
 
 variable "persistent_volume_ids" {
-  type = "list"
+  type    = "list"
+  default = []
+}
+
+variable "persistent_network_interface_ids" {
+  type    = "list"
+  default = []
 }
