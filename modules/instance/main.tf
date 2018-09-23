@@ -53,13 +53,17 @@ resource "aws_network_interface_attachment" "persistent" {
   count                = "${length(var.persistent_network_interface_ids)}"
 }
 
+data "aws_subnet" "subnet" {
+  id = "${var.subnet_id}"
+}
+
 resource "aws_route53_record" "a" {
   zone_id = "${var.zone_id}"
   name    = "${var.name}.${var.zone_name}"
   type    = "A"
   ttl     = "60"
   records = ["${aws_instance.instance.public_ip}"]
-  count   = "${aws_instance.instance.public_ip != "" ? 1 : 0}"
+  count   = "${data.aws_subnet.subnet.map_public_ip_on_launch ? 1 : 0}"
 }
 
 resource "aws_route53_record" "aaaa" {
