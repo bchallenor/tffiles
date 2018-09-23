@@ -1,4 +1,17 @@
 variable "name" {}
+
+variable "ami_owner" {
+  default = "self"
+}
+
+variable "ami_name" {
+  default = ""
+}
+
+locals {
+  ami_name = "${var.ami_name != "" ? var.ami_name : "${var.name}-*"}"
+}
+
 variable "instance_type" {}
 variable "availability_zone" {}
 variable "subnet_id" {}

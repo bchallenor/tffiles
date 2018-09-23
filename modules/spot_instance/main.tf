@@ -36,11 +36,11 @@ resource "aws_spot_instance_request" "instance" {
 
 data "aws_ami" "ami" {
   most_recent = true
-  owners      = ["self"]
+  owners      = ["${var.ami_owner}"]
 
   filter {
     name   = "name"
-    values = ["${var.name}-*"]
+    values = ["${local.ami_name}"]
   }
 }
 
