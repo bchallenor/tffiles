@@ -33,6 +33,17 @@ resource "aws_security_group" "private_vpn_server" {
   }
 }
 
+resource "aws_network_interface" "private_vpn_server" {
+  subnet_id = "${aws_subnet.private.id}"
+
+  security_groups   = ["${aws_security_group.private_vpn_server.id}"]
+  source_dest_check = false
+
+  tags {
+    Name = "${var.name}-private-vpn-server"
+  }
+}
+
 resource "aws_security_group" "vpn_target" {
   name   = "vpn-target"
   vpc_id = "${aws_vpc.default.id}"
