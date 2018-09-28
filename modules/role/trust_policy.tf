@@ -28,4 +28,8 @@ data "aws_iam_policy_document" "mfa_and_services_trust_policy" {
   }
 }
 
+locals {
+  trust_policy_json = "${length(var.trusted_services) > 0 ? data.aws_iam_policy_document.mfa_and_services_trust_policy.json : data.aws_iam_policy_document.mfa_trust_policy.json}"
+}
+
 data "aws_caller_identity" "self" {}
