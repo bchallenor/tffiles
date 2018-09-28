@@ -74,7 +74,7 @@ module "termux_phone_user" {
   ]
 }
 
-module "ami_builder_profile" {
+module "ami_builder_role" {
   source = "./modules/role"
   name   = "ami-builder"
 
@@ -89,7 +89,7 @@ module "ami_builder_profile" {
   ]
 }
 
-module "jenkins_profile" {
+module "jenkins_role" {
   source = "./modules/role"
   name   = "jenkins"
 
