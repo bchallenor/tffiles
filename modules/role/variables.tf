@@ -11,3 +11,7 @@ variable "policy_json" {
 variable "policy_arns" {
   default = []
 }
+
+variable "create_instance_profile" {
+  default = "false"
+}
