@@ -23,10 +23,13 @@ module "laptop_user" {
   source = "./modules/user"
   user   = "laptop"
 
+  role_arns = [
+    "${module.admin_role.arn}",
+  ]
+
   policy_arns = [
     "${module.self_management_policy.arn}",
     "${module.cloudtrail.bucket_read_policy_arn}",
-    "${module.admin_role.assume_policy_arn}",
     "${module.terraform_policy.arn}",
     "${module.tfstate_bucket.read_policy_arn}",
     "${module.drawbridge_dev.policy_arn}",
@@ -50,10 +53,13 @@ module "nano_user" {
   source = "./modules/user"
   user   = "nano"
 
+  role_arns = [
+    "${module.admin_role.arn}",
+  ]
+
   policy_arns = [
     "${module.self_management_policy.arn}",
     "${module.cloudtrail.bucket_read_policy_arn}",
-    "${module.admin_role.assume_policy_arn}",
     "${module.terraform_policy.arn}",
     "${module.tfstate_bucket.read_policy_arn}",
     "${module.ami_builder_policy.arn}",
