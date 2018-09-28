@@ -2,6 +2,10 @@ data "aws_s3_bucket" "bucket" {
   bucket = "${var.bucket_name}"
 }
 
+locals {
+  bucket_arn = "${data.aws_s3_bucket.bucket.arn}"
+}
+
 resource "aws_lambda_permission" "bucket" {
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.fn.arn}"

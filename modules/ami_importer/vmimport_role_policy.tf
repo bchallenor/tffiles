@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "role_policy" {
+data "aws_iam_policy_document" "vmimport" {
   statement {
     actions = [
       "s3:GetBucketLocation",
@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "role_policy" {
     ]
 
     resources = [
-      "${var.bucket_arn}",
+      "${local.bucket_arn}",
     ]
   }
 
@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "role_policy" {
     ]
 
     resources = [
-      "${var.bucket_arn}/ami/*.img",
+      "${local.bucket_arn}/ami/*.img",
     ]
   }
 

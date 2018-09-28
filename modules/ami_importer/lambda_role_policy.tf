@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "role_policy" {
+data "aws_iam_policy_document" "lambda" {
   statement {
     actions = [
       "logs:CreateLogGroup",
@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "role_policy" {
     ]
 
     resources = [
-      "arn:aws:lambda:*:*:function:${var.function_name}",
+      "arn:aws:lambda:*:*:function:${local.function_name}",
     ]
   }
 
@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "role_policy" {
     ]
 
     resources = [
-      "${var.bucket_arn}",
+      "${local.bucket_arn}",
     ]
   }
 
@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "role_policy" {
     ]
 
     resources = [
-      "${var.bucket_arn}/ami/*.img",
+      "${local.bucket_arn}/ami/*.img",
     ]
   }
 

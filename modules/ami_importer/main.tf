@@ -14,6 +14,10 @@ resource "aws_lambda_function" "fn" {
   }
 }
 
+locals {
+  function_name = "${aws_lambda_function.fn.function_name}"
+}
+
 data "archive_file" "fn" {
   type        = "zip"
   source_dir  = "${path.module}/src"
@@ -21,14 +25,15 @@ data "archive_file" "fn" {
 }
 
 module "lambda_role" {
-  source        = "./modules/lambda_role"
-  name          = "${var.name}"
-  function_name = "${var.name}"
-  bucket_arn    = "${data.aws_s3_bucket.bucket.arn}"
+  source           = "../role"
+  name             = "${var.name}"
+  policy_json      = "${data.aws_iam_policy_document.lambda.json}"
+  trusted_services = ["lambda.amazonaws.com"]
 }
 
 module "vmimport_role" {
-  source     = "./modules/vmimport_role"
-  name       = "vmimport-${var.name}"
-  bucket_arn = "${data.aws_s3_bucket.bucket.arn}"
+  source           = "../role"
+  name             = "vmimport-${var.name}"
+  policy_json      = "${data.aws_iam_policy_document.vmimport.json}"
+  trusted_services = ["vmie.amazonaws.com"]
 }
