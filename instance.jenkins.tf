@@ -27,7 +27,7 @@ module "jenkins_instance" {
   spot_price            = "0.018"
   availability_zone     = "${var.stable_availability_zone}"
   subnet_id             = "${module.vpc_stable.private_subnet_id}"
-  instance_profile_name = "${module.jenkins_profile.profile_name}"
+  instance_profile_name = "${module.jenkins_profile.name}"
   root_volume_size      = 20
 
   security_group_ids = [

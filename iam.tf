@@ -75,8 +75,10 @@ module "termux_phone_user" {
 }
 
 module "ami_builder_profile" {
-  source = "./modules/instance_profile"
+  source = "./modules/role"
   name   = "ami-builder"
+
+  create_instance_profile = true
 
   policy_arns = [
     "${module.ami_builder_policy.arn}",
@@ -88,8 +90,10 @@ module "ami_builder_profile" {
 }
 
 module "jenkins_profile" {
-  source = "./modules/instance_profile"
+  source = "./modules/role"
   name   = "jenkins"
+
+  create_instance_profile = true
 
   policy_arns = [
     "${module.artifacts_bucket_stable.write_policy_arn}",
