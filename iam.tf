@@ -6,10 +6,6 @@ module "ami_builder_policy" {
   source = "./modules/ami_builder_policy"
 }
 
-module "self_management_policy" {
-  source = "./modules/self_management_policy"
-}
-
 module "admin_role" {
   source = "./modules/role"
   name   = "admin"
@@ -32,7 +28,6 @@ module "laptop_user" {
   ]
 
   policy_arns = [
-    "${module.self_management_policy.arn}",
     "${module.cloudtrail.bucket_read_policy_arn}",
     "${module.terraform_policy.arn}",
     "${module.tfstate_bucket.read_policy_arn}",
@@ -62,7 +57,6 @@ module "nano_user" {
   ]
 
   policy_arns = [
-    "${module.self_management_policy.arn}",
     "${module.cloudtrail.bucket_read_policy_arn}",
     "${module.terraform_policy.arn}",
     "${module.tfstate_bucket.read_policy_arn}",
