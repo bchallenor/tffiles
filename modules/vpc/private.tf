@@ -36,6 +36,12 @@ resource "aws_route" "private_ipv6_gateway" {
   egress_only_gateway_id      = "${aws_egress_only_internet_gateway.private.id}"
 }
 
+resource "aws_route" "private_nat_server" {
+  route_table_id         = "${aws_route_table.private.id}"
+  destination_cidr_block = "0.0.0.0/0"
+  network_interface_id   = "${aws_network_interface.private_nat_server.id}"
+}
+
 resource "aws_route" "private_vpn_server" {
   route_table_id              = "${aws_route_table.private.id}"
   destination_ipv6_cidr_block = "${var.vpn_ipv6_cidr_block}"
