@@ -1,6 +1,13 @@
 resource "aws_iam_role" "role" {
   name               = "${var.name}"
-  assume_role_policy = "${data.aws_iam_policy_document.trust_policy.json}"
+  assume_role_policy = "${length(var.trusted_services) > 0 ? data.aws_iam_policy_document.mfa_and_services_trust_policy.json : data.aws_iam_policy_document.mfa_trust_policy.json}"
+}
+
+resource "aws_iam_role_policy" "role" {
+  name   = "${var.name}"
+  role   = "${aws_iam_role.role.name}"
+  policy = "${var.policy_json}"
+  count  = "${var.policy_json != "" ? 1 : 0}"
 }
 
 resource "aws_iam_role_policy_attachment" "role" {
