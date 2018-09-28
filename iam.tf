@@ -34,8 +34,6 @@ module "laptop_user" {
     "${module.drawbridge_dev.policy_arn}",
     "${module.drawbridge_stable.policy_arn}",
     "${module.cloud_zone.bind_policy_arn}",
-    "${module.artifacts_bucket_stable.write_policy_arn}",
-    "${module.artifacts_bucket_local.write_policy_arn}",
   ]
 }
 
@@ -60,7 +58,6 @@ module "nano_user" {
     "${module.cloudtrail.bucket_read_policy_arn}",
     "${module.terraform_policy.arn}",
     "${module.tfstate_bucket.read_policy_arn}",
-    "${module.ami_builder_policy.arn}",
     "${module.drawbridge_dev.policy_arn}",
     "${module.drawbridge_stable.policy_arn}",
     "${module.cloud_zone.bind_policy_arn}",
