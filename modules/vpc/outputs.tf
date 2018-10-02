@@ -33,3 +33,7 @@ output "vpn_target_security_group_id" {
 output "https_client_security_group_id" {
   value = "${aws_security_group.https_client.id}"
 }
+
+output "github_client_security_group_id" {
+  value = "${aws_security_group.github_client.id}"
+}

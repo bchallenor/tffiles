@@ -19,6 +19,7 @@ module "nat_instance" {
 
   security_group_ids = [
     "${module.vpc_stable.public_nat_server_security_group_id}",
+    "${module.vpc_stable.github_client_security_group_id}",
     "${module.drawbridge_stable.security_group_id}",
   ]
 

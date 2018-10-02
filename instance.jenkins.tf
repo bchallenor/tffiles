@@ -32,6 +32,7 @@ module "jenkins_instance" {
 
   security_group_ids = [
     "${module.vpc_stable.https_client_security_group_id}",
+    "${module.vpc_stable.github_client_security_group_id}",
     "${module.vpc_stable.vpn_target_security_group_id}",
   ]
 
