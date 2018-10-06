@@ -15,18 +15,27 @@ data "aws_iam_policy_document" "lambda" {
     ]
 
     resources = [
-      "arn:aws:lambda:*:*:function:${local.function_name}",
+      "arn:aws:lambda:*:*:function:${local.task_function_name}",
     ]
   }
 
   statement {
     actions = [
-      "s3:GetBucketLocation",
+      "s3:ListBucket",
     ]
 
     resources = [
       "${local.bucket_arn}",
     ]
+
+    condition {
+      test     = "StringEquals"
+      variable = "s3:prefix"
+
+      values = [
+        "ami/",
+      ]
+    }
   }
 
   statement {
@@ -71,7 +80,9 @@ data "aws_iam_policy_document" "lambda" {
 
   statement {
     actions = [
+      "ec2:DescribeImages",
       "ec2:RegisterImage",
+      "ec2:DeregisterImage",
     ]
 
     resources = ["*"]

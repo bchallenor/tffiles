@@ -1,27 +1,48 @@
-resource "aws_lambda_function" "fn" {
-  function_name    = "${var.name}"
-  role             = "${module.lambda_role.arn}"
-  runtime          = "python3.6"
-  handler          = "ami_importer.aws_lambda_handler"
-  timeout          = 300
-  filename         = "${data.archive_file.fn.output_path}"
-  source_code_hash = "${data.archive_file.fn.output_base64sha256}"
+locals {
+  s3_function_name   = "${var.name}-s3"
+  task_function_name = "${var.name}-task"
+}
+
+data "aws_s3_bucket_object" "amisync" {
+  bucket = "${var.bucket_name}"
+  key    = "jar/amisync.jar"
+}
+
+resource "aws_lambda_function" "s3" {
+  function_name     = "${local.s3_function_name}"
+  role              = "${module.lambda_role.arn}"
+  runtime           = "java8"
+  handler           = "amisync.lambda.S3Handler::handleRequest"
+  memory_size       = 256
+  timeout           = 60
+  s3_bucket         = "${data.aws_s3_bucket_object.amisync.bucket}"
+  s3_key            = "${data.aws_s3_bucket_object.amisync.key}"
+  s3_object_version = "${data.aws_s3_bucket_object.amisync.version_id}"
 
   environment {
     variables = {
-      VMIMPORT_ROLE_NAME = "${module.vmimport_role.name}"
+      TASK_FUNCTION_NAME = "${local.task_function_name}"
     }
   }
 }
 
-locals {
-  function_name = "${aws_lambda_function.fn.function_name}"
-}
+resource "aws_lambda_function" "task" {
+  function_name     = "${local.task_function_name}"
+  role              = "${module.lambda_role.arn}"
+  runtime           = "java8"
+  handler           = "amisync.lambda.TaskHandler::handleRequest"
+  memory_size       = 256
+  timeout           = 60
+  s3_bucket         = "${data.aws_s3_bucket_object.amisync.bucket}"
+  s3_key            = "${data.aws_s3_bucket_object.amisync.key}"
+  s3_object_version = "${data.aws_s3_bucket_object.amisync.version_id}"
 
-data "archive_file" "fn" {
-  type        = "zip"
-  source_dir  = "${path.module}/src"
-  output_path = "${path.module}/build.zip"
+  environment {
+    variables = {
+      TASK_FUNCTION_NAME = "${local.task_function_name}"
+      VMIMPORT_ROLE_NAME = "${module.vmimport_role.name}"
+    }
+  }
 }
 
 module "lambda_role" {
