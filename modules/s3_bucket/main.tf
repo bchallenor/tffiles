@@ -16,12 +16,12 @@ resource "aws_s3_bucket" "bucket" {
     abort_incomplete_multipart_upload_days = 1
 
     transition {
-      days          = 30
+      days          = "${var.transition_days}"
       storage_class = "STANDARD_IA"
     }
 
     noncurrent_version_transition {
-      days          = 30
+      days          = "${var.noncurrent_version_transition_days}"
       storage_class = "STANDARD_IA"
     }
 
@@ -30,7 +30,7 @@ resource "aws_s3_bucket" "bucket" {
     }
 
     noncurrent_version_expiration {
-      days = 90
+      days = "${var.noncurrent_version_expiration_days}"
     }
   }
 }
