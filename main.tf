@@ -91,6 +91,9 @@ module "artifacts_bucket_stable" {
   source = "./modules/s3_bucket"
   name   = "artifacts-stable-${var.affix}"
 
+  # TODO(v0.12): reduce once we can make noncurrent_version_transition a dynamic block
+  noncurrent_version_expiration_days = 31
+
   providers = {
     "aws" = "aws.stable"
   }
@@ -99,6 +102,9 @@ module "artifacts_bucket_stable" {
 module "artifacts_bucket_local" {
   source = "./modules/s3_bucket"
   name   = "artifacts-local-${var.affix}"
+
+  # TODO(v0.12): reduce once we can make noncurrent_version_transition a dynamic block
+  noncurrent_version_expiration_days = 31
 
   providers = {
     "aws" = "aws.local"
