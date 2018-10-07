@@ -1,15 +1,10 @@
-locals {
-  s3_function_name   = "${var.name}-s3"
-  task_function_name = "${var.name}-task"
-}
-
 data "aws_s3_bucket_object" "amisync" {
   bucket = "${var.bucket_name}"
   key    = "jar/amisync.jar"
 }
 
 resource "aws_lambda_function" "s3" {
-  function_name     = "${local.s3_function_name}"
+  function_name     = "${var.name}-s3"
   role              = "${module.lambda_role.arn}"
   runtime           = "java8"
   handler           = "amisync.lambda.S3Handler::handleRequest"
@@ -21,13 +16,13 @@ resource "aws_lambda_function" "s3" {
 
   environment {
     variables = {
-      TASK_FUNCTION_NAME = "${local.task_function_name}"
+      TASK_QUEUE_URL = "${aws_sqs_queue.task.id}"
     }
   }
 }
 
 resource "aws_lambda_function" "task" {
-  function_name     = "${local.task_function_name}"
+  function_name     = "${var.name}-task"
   role              = "${module.lambda_role.arn}"
   runtime           = "java8"
   handler           = "amisync.lambda.TaskHandler::handleRequest"
@@ -39,7 +34,7 @@ resource "aws_lambda_function" "task" {
 
   environment {
     variables = {
-      TASK_FUNCTION_NAME = "${local.task_function_name}"
+      TASK_QUEUE_URL     = "${aws_sqs_queue.task.id}"
       VMIMPORT_ROLE_NAME = "${module.vmimport_role.name}"
     }
   }

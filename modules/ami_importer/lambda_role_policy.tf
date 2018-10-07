@@ -11,11 +11,15 @@ data "aws_iam_policy_document" "lambda" {
 
   statement {
     actions = [
-      "lambda:InvokeFunction",
+      "sqs:GetQueueAttributes",
+      "sqs:ReceiveMessage",
+      "sqs:ChangeMessageVisibility",
+      "sqs:DeleteMessage",
+      "sqs:SendMessage",
     ]
 
     resources = [
-      "arn:aws:lambda:*:*:function:${local.task_function_name}",
+      "${aws_sqs_queue.task.arn}",
     ]
   }
 
