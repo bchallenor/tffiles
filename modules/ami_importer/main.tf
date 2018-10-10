@@ -40,6 +40,16 @@ resource "aws_lambda_function" "task" {
   }
 }
 
+resource "aws_cloudwatch_log_group" "s3" {
+  name              = "/aws/lambda/${aws_lambda_function.s3.function_name}"
+  retention_in_days = 7
+}
+
+resource "aws_cloudwatch_log_group" "task" {
+  name              = "/aws/lambda/${aws_lambda_function.task.function_name}"
+  retention_in_days = 7
+}
+
 module "lambda_role" {
   source           = "../role"
   name             = "${var.name}"

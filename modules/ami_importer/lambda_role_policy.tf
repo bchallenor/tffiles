@@ -1,7 +1,6 @@
 data "aws_iam_policy_document" "lambda" {
   statement {
     actions = [
-      "logs:CreateLogGroup",
       "logs:CreateLogStream",
       "logs:PutLogEvents",
     ]
