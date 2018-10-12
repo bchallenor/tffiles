@@ -22,8 +22,8 @@ module "laptop_user" {
   role_arns = [
     "${module.admin_role.arn}",
     "${module.ami_builder_role.arn}",
-    "${module.ami_importer_stable.lambda_role_arn}",
-    "${module.ami_importer_local.lambda_role_arn}",
+    "${module.amisync_stable.lambda_role_arn}",
+    "${module.amisync_local.lambda_role_arn}",
     "${module.jenkins_role.arn}",
   ]
 

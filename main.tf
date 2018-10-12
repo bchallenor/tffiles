@@ -111,9 +111,9 @@ module "artifacts_bucket_local" {
   }
 }
 
-module "ami_importer_stable" {
-  source      = "./modules/ami_importer"
-  name        = "ami-importer-stable"
+module "amisync_stable" {
+  source      = "./modules/amisync"
+  name        = "amisync-stable"
   bucket_name = "${module.artifacts_bucket_stable.id}"
 
   providers = {
@@ -121,9 +121,9 @@ module "ami_importer_stable" {
   }
 }
 
-module "ami_importer_local" {
-  source      = "./modules/ami_importer"
-  name        = "ami-importer-local"
+module "amisync_local" {
+  source      = "./modules/amisync"
+  name        = "amisync-local"
   bucket_name = "${module.artifacts_bucket_local.id}"
 
   providers = {
