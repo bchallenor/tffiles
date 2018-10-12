@@ -32,6 +32,8 @@ resource "aws_lambda_function" "task" {
   s3_key            = "${data.aws_s3_bucket_object.amisync.key}"
   s3_object_version = "${data.aws_s3_bucket_object.amisync.version_id}"
 
+  reserved_concurrent_executions = 1
+
   environment {
     variables = {
       TASK_QUEUE_URL     = "${aws_sqs_queue.task.id}"
