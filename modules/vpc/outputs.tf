@@ -30,6 +30,10 @@ output "vpn_target_security_group_id" {
   value = "${aws_security_group.vpn_target.id}"
 }
 
+output "http_client_security_group_id" {
+  value = "${aws_security_group.http_client.id}"
+}
+
 output "https_client_security_group_id" {
   value = "${aws_security_group.https_client.id}"
 }
