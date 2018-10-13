@@ -31,6 +31,7 @@ module "jenkins_instance" {
   root_volume_size      = 20
 
   security_group_ids = [
+    "${module.vpc_stable.http_client_security_group_id}",
     "${module.vpc_stable.https_client_security_group_id}",
     "${module.vpc_stable.github_client_security_group_id}",
     "${module.vpc_stable.vpn_target_security_group_id}",
