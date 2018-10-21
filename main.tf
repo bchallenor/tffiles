@@ -78,6 +78,15 @@ module "backups_bucket" {
   }
 }
 
+module "annex_archive_bucket" {
+  source = "./modules/s3_bucket"
+  name   = "annex-archive-${var.affix}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
+
 module "annex_photos_bucket" {
   source = "./modules/s3_bucket"
   name   = "annex-photos-${var.affix}"

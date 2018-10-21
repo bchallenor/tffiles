@@ -42,6 +42,7 @@ module "laptop_annex_user" {
   user   = "laptop-annex"
 
   policy_arns = [
+    "${module.annex_archive_bucket.write_policy_arn}",
     "${module.annex_photos_bucket.write_policy_arn}",
   ]
 }
