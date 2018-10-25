@@ -1,6 +1,6 @@
 data "aws_s3_bucket_object" "amisync" {
   bucket = "${var.bucket_name}"
-  key    = "jar/amisync.jar"
+  key    = "jar/amisync/amisync.jar"
 }
 
 resource "aws_lambda_function" "s3" {
