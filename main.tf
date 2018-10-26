@@ -19,6 +19,14 @@ provider "archive" {
   version = "~> 1.1"
 }
 
+provider "external" {
+  version = "~> 1.0"
+}
+
+provider "http" {
+  version = "~> 1.0"
+}
+
 module "root_zone" {
   source = "./modules/dns_zone"
   name   = "${var.domain}."
