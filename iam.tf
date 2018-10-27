@@ -6,6 +6,10 @@ module "ami_builder_policy" {
   source = "./modules/ami_builder_policy"
 }
 
+module "ec2_describe_policy" {
+  source = "./modules/ec2_describe_policy"
+}
+
 module "admin_role" {
   source = "./modules/role"
   name   = "admin"
