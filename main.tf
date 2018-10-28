@@ -128,6 +128,17 @@ module "artifacts_bucket_local" {
   }
 }
 
+module "nix_cache_bucket_stable" {
+  source = "./modules/s3_cache_bucket"
+  name   = "nix-cache-stable-${var.affix}"
+
+  expiration_days = 28
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
+
 module "amisync_stable" {
   source      = "./modules/amisync"
   name        = "amisync-stable"

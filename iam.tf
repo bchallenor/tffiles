@@ -107,5 +107,6 @@ module "jenkins_role" {
     "${module.registry_stable.push_policy_arn}",
     "${module.registry_local.push_policy_arn}",
     "${module.ec2_describe_policy.arn}",
+    "${module.nix_cache_bucket_stable.write_policy_arn}",
   ]
 }
