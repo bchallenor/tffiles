@@ -9,6 +9,7 @@ data "aws_iam_policy_document" "push_policy" {
 
   statement {
     actions = [
+      "ecr:ListImages",
       "ecr:BatchGetImage",
       "ecr:BatchCheckLayerAvailability",
       "ecr:GetDownloadUrlForLayer",
