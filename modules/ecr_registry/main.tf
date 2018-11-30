@@ -20,3 +20,10 @@ resource "aws_iam_policy" "push_policy" {
   name   = "ecr-${var.name}-push"
   policy = "${data.aws_iam_policy_document.push_policy.json}"
 }
+
+module "exec_role" {
+  source           = "../role"
+  name             = "ecr-${var.name}-exec"
+  policy_json      = "${data.aws_iam_policy_document.exec_role_policy.json}"
+  trusted_services = ["ecs-tasks.amazonaws.com"]
+}
