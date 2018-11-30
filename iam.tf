@@ -110,3 +110,16 @@ module "jenkins_role" {
     "${module.nix_cache_bucket_stable.write_policy_arn}",
   ]
 }
+
+module "nix_build_role" {
+  source = "./modules/role"
+  name   = "nix-build"
+
+  trusted_services = ["ecs-tasks.amazonaws.com"]
+
+  policy_arns = [
+    "${module.artifacts_bucket_stable.write_policy_arn}",
+    "${module.artifacts_bucket_local.write_policy_arn}",
+    "${module.nix_cache_bucket_stable.write_policy_arn}",
+  ]
+}
