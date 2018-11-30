@@ -174,6 +174,24 @@ module "registry_stable" {
   }
 }
 
+module "task_cluster_stable" {
+  source = "./modules/ecr_task_cluster"
+
+  name = "nix-build"
+
+  image_names = "${module.registry_stable.image_names}"
+
+  cpu    = 2048
+  memory = 4096
+
+  exec_role_arn = "${module.registry_stable.exec_role_arn}"
+  task_role_arn = "${module.nix_build_role.arn}"
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
+
 module "registry_local" {
   source = "./modules/ecr_registry"
 
