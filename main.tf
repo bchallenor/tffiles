@@ -139,6 +139,17 @@ module "nix_cache_bucket_stable" {
   }
 }
 
+module "tmp_bucket" {
+  source = "./modules/s3_cache_bucket"
+  name   = "tmp-${var.affix}"
+
+  expiration_days = 1
+
+  providers = {
+    "aws" = "aws.stable"
+  }
+}
+
 module "amisync_stable" {
   source      = "./modules/amisync"
   name        = "amisync-stable"
