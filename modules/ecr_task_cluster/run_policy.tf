@@ -44,4 +44,15 @@ data "aws_iam_policy_document" "run_policy" {
       "${var.task_role_arn}",
     ]
   }
+
+  statement {
+    actions = [
+      "logs:DescribeLogStreams",
+      "logs:FilterLogEvents",
+    ]
+
+    resources = [
+      "${aws_cloudwatch_log_group.default.arn}",
+    ]
+  }
 }
