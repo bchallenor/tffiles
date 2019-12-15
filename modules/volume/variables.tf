@@ -1,3 +1,9 @@
-variable "name" {}
-variable "size" {}
-variable "availability_zone" {}
+variable "name" {
+}
+
+variable "size" {
+}
+
+variable "availability_zone" {
+}
+

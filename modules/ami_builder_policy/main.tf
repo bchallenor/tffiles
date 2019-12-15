@@ -29,5 +29,6 @@ data "aws_iam_policy_document" "policy" {
 
 resource "aws_iam_policy" "policy" {
   name   = "ami-builder"
-  policy = "${data.aws_iam_policy_document.policy.json}"
+  policy = data.aws_iam_policy_document.policy.json
 }
+

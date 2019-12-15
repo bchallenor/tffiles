@@ -1,6 +1,6 @@
 resource "aws_iam_policy" "write_policy" {
   name   = "s3-${aws_s3_bucket.bucket.bucket}-write"
-  policy = "${data.aws_iam_policy_document.write_policy.json}"
+  policy = data.aws_iam_policy_document.write_policy.json
 }
 
 data "aws_iam_policy_document" "write_policy" {
@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "write_policy" {
     ]
 
     resources = [
-      "${aws_s3_bucket.bucket.arn}",
+      aws_s3_bucket.bucket.arn,
     ]
   }
 
@@ -27,3 +27,4 @@ data "aws_iam_policy_document" "write_policy" {
     ]
   }
 }
+

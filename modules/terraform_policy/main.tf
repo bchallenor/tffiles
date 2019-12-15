@@ -1,6 +1,6 @@
 resource "aws_iam_policy" "policy" {
   name   = "terraform"
-  policy = "${data.aws_iam_policy_document.policy.json}"
+  policy = data.aws_iam_policy_document.policy.json
 }
 
 data "aws_iam_policy_document" "policy" {
@@ -115,3 +115,4 @@ data "aws_iam_policy_document" "policy" {
     ]
   }
 }
+

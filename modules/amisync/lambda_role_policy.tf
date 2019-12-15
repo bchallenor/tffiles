@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "lambda" {
     ]
 
     resources = [
-      "${aws_sqs_queue.task.arn}",
+      aws_sqs_queue.task.arn,
     ]
   }
 
@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "lambda" {
     ]
 
     resources = [
-      "${local.bucket_arn}",
+      local.bucket_arn,
     ]
 
     condition {
@@ -91,3 +91,4 @@ data "aws_iam_policy_document" "lambda" {
     resources = ["*"]
   }
 }
+

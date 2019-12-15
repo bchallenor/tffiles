@@ -1,7 +1,8 @@
-provider "aws" {}
+provider "aws" {
+}
 
 resource "aws_s3_bucket" "bucket" {
-  bucket = "${var.name}"
+  bucket = var.name
   acl    = "private"
 
   versioning {
@@ -16,7 +17,8 @@ resource "aws_s3_bucket" "bucket" {
     abort_incomplete_multipart_upload_days = 1
 
     expiration {
-      days = "${var.expiration_days}"
+      days = var.expiration_days
     }
   }
 }
+

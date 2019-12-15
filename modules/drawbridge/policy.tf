@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "policy" {
     condition {
       test     = "StringEquals"
       variable = "ec2:ResourceTag/Drawbridge"
-      values   = ["${var.name}"]
+      values   = [var.name]
     }
   }
 
@@ -37,5 +37,6 @@ data "aws_iam_policy_document" "policy" {
 
 resource "aws_iam_policy" "policy" {
   name   = "drawbridge-${var.name}"
-  policy = "${data.aws_iam_policy_document.policy.json}"
+  policy = data.aws_iam_policy_document.policy.json
 }
+

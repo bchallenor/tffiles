@@ -1,8 +1,8 @@
 resource "aws_security_group" "public_vpn_server" {
   name   = "public-vpn-server"
-  vpc_id = "${aws_vpc.default.id}"
+  vpc_id = aws_vpc.default.id
 
-  tags {
+  tags = {
     Name = "public-vpn-server"
   }
 
@@ -18,9 +18,9 @@ resource "aws_security_group" "public_vpn_server" {
 
 resource "aws_security_group" "private_vpn_server" {
   name   = "private-vpn-server"
-  vpc_id = "${aws_vpc.default.id}"
+  vpc_id = aws_vpc.default.id
 
-  tags {
+  tags = {
     Name = "private-vpn-server"
   }
 
@@ -29,26 +29,26 @@ resource "aws_security_group" "private_vpn_server" {
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
-    ipv6_cidr_blocks = ["${aws_subnet.private.ipv6_cidr_block}"]
+    ipv6_cidr_blocks = [aws_subnet.private.ipv6_cidr_block]
   }
 }
 
 resource "aws_network_interface" "private_vpn_server" {
-  subnet_id = "${aws_subnet.private.id}"
+  subnet_id = aws_subnet.private.id
 
-  security_groups   = ["${aws_security_group.private_vpn_server.id}"]
+  security_groups   = [aws_security_group.private_vpn_server.id]
   source_dest_check = false
 
-  tags {
+  tags = {
     Name = "${var.name}-private-vpn-server"
   }
 }
 
 resource "aws_security_group" "vpn_target" {
   name   = "vpn-target"
-  vpc_id = "${aws_vpc.default.id}"
+  vpc_id = aws_vpc.default.id
 
-  tags {
+  tags = {
     Name = "vpn-target"
   }
 
@@ -57,6 +57,7 @@ resource "aws_security_group" "vpn_target" {
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
-    ipv6_cidr_blocks = ["${var.vpn_ipv6_cidr_block}"]
+    ipv6_cidr_blocks = [var.vpn_ipv6_cidr_block]
   }
 }
+

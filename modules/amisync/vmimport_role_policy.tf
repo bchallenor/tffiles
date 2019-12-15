@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "vmimport" {
     ]
 
     resources = [
-      "${local.bucket_arn}",
+      local.bucket_arn,
     ]
   }
 
@@ -29,3 +29,4 @@ data "aws_iam_policy_document" "vmimport" {
     resources = ["*"]
   }
 }
+

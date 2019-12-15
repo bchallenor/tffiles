@@ -1,8 +1,8 @@
 resource "aws_security_group" "http_client" {
   name   = "http-client"
-  vpc_id = "${aws_vpc.default.id}"
+  vpc_id = aws_vpc.default.id
 
-  tags {
+  tags = {
     Name = "http-client"
   }
 
@@ -15,3 +15,4 @@ resource "aws_security_group" "http_client" {
     ipv6_cidr_blocks = ["::/0"]
   }
 }
+

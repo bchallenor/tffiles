@@ -1,15 +1,17 @@
-provider "aws" {}
+provider "aws" {
+}
 
 module "bucket" {
   source = "../s3_bucket"
-  name   = "${var.bucket_name}"
+  name   = var.bucket_name
 
   providers = {
-    "aws" = "aws"
+    aws = aws
   }
 }
 
-data "aws_caller_identity" "self" {}
+data "aws_caller_identity" "self" {
+}
 
 data "aws_iam_policy_document" "bucket_policy" {
   statement {
@@ -23,7 +25,7 @@ data "aws_iam_policy_document" "bucket_policy" {
     ]
 
     resources = [
-      "${module.bucket.arn}",
+      module.bucket.arn,
     ]
   }
 
@@ -50,13 +52,14 @@ data "aws_iam_policy_document" "bucket_policy" {
 }
 
 resource "aws_s3_bucket_policy" "bucket_policy" {
-  bucket = "${module.bucket.id}"
-  policy = "${data.aws_iam_policy_document.bucket_policy.json}"
+  bucket = module.bucket.id
+  policy = data.aws_iam_policy_document.bucket_policy.json
 }
 
 resource "aws_cloudtrail" "trail" {
   name                       = "trail"
-  s3_bucket_name             = "${module.bucket.id}"
+  s3_bucket_name             = module.bucket.id
   is_multi_region_trail      = true
   enable_log_file_validation = true
 }
+

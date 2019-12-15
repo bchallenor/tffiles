@@ -8,16 +8,17 @@ resource "aws_cloudwatch_metric_alarm" "billing" {
   evaluation_periods  = "1"
   metric_name         = "EstimatedCharges"
   namespace           = "AWS/Billing"
-  period              = "${6*60*60}"
+  period              = 6 * 60 * 60
   statistic           = "Maximum"
-  threshold           = "${element(var.thresholds, count.index)}"
-  count               = "${length(var.thresholds)}"
+  threshold           = element(var.thresholds, count.index)
+  count               = length(var.thresholds)
 
-  dimensions {
+  dimensions = {
     Currency = "USD"
   }
 
   alarm_actions = [
-    "${aws_sns_topic.billing.arn}",
+    aws_sns_topic.billing.arn,
   ]
 }
+
