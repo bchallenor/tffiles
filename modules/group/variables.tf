@@ -1,4 +1,5 @@
-variable "group" {}
+variable "group" {
+}
 
 variable "policy_arns" {
   default = []
@@ -7,3 +8,4 @@ variable "policy_arns" {
 variable "users" {
   default = []
 }
+

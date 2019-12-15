@@ -15,8 +15,7 @@ data "aws_iam_policy_document" "pull_policy" {
       "ecr:GetDownloadUrlForLayer",
     ]
 
-    resources = [
-      "${aws_ecr_repository.repo.*.arn}",
-    ]
+    resources = aws_ecr_repository.repo.*.arn
   }
 }
+

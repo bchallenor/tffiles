@@ -1,6 +1,6 @@
 resource "aws_route53_record" "mx" {
-  zone_id = "${var.zone_id}"
-  name    = "${var.zone_name}"
+  zone_id = var.zone_id
+  name    = var.zone_name
   type    = "MX"
   ttl     = "3600"
 
@@ -12,3 +12,4 @@ resource "aws_route53_record" "mx" {
     "10 ALT4.ASPMX.L.GOOGLE.COM",
   ]
 }
+

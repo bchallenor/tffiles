@@ -20,6 +20,11 @@ data "aws_iam_policy_document" "bind_policy" {
 }
 
 resource "aws_iam_policy" "bind_policy" {
-  name   = "zone-${substr(aws_route53_zone.zone.name, 0, length(aws_route53_zone.zone.name) - 1)}-bind"
-  policy = "${data.aws_iam_policy_document.bind_policy.json}"
+  name = "zone-${substr(
+    aws_route53_zone.zone.name,
+    0,
+    length(aws_route53_zone.zone.name) - 1,
+  )}-bind"
+  policy = data.aws_iam_policy_document.bind_policy.json
 }
+

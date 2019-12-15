@@ -1,7 +1,8 @@
-provider "aws" {}
+provider "aws" {
+}
 
 resource "aws_s3_bucket" "bucket" {
-  bucket = "${var.name}"
+  bucket = var.name
   acl    = "private"
 
   versioning {
@@ -16,12 +17,12 @@ resource "aws_s3_bucket" "bucket" {
     abort_incomplete_multipart_upload_days = 1
 
     transition {
-      days          = "${var.transition_days}"
+      days          = var.transition_days
       storage_class = "STANDARD_IA"
     }
 
     noncurrent_version_transition {
-      days          = "${var.noncurrent_version_transition_days}"
+      days          = var.noncurrent_version_transition_days
       storage_class = "STANDARD_IA"
     }
 
@@ -30,16 +31,17 @@ resource "aws_s3_bucket" "bucket" {
     }
 
     noncurrent_version_expiration {
-      days = "${var.noncurrent_version_expiration_days}"
+      days = var.noncurrent_version_expiration_days
     }
   }
 }
 
 resource "aws_s3_bucket_public_access_block" "bucket" {
-  bucket = "${aws_s3_bucket.bucket.id}"
+  bucket = aws_s3_bucket.bucket.id
 
   block_public_acls       = true
   ignore_public_acls      = true
   block_public_policy     = true
   restrict_public_buckets = true
 }
+

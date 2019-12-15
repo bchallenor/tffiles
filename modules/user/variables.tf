@@ -1,4 +1,5 @@
-variable "user" {}
+variable "user" {
+}
 
 variable "role_arns" {
   default = []
@@ -7,3 +8,4 @@ variable "role_arns" {
 variable "policy_arns" {
   default = []
 }
+

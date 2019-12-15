@@ -19,8 +19,7 @@ data "aws_iam_policy_document" "push_policy" {
       "ecr:PutImage",
     ]
 
-    resources = [
-      "${aws_ecr_repository.repo.*.arn}",
-    ]
+    resources = aws_ecr_repository.repo.*.arn
   }
 }
+

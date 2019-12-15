@@ -1,8 +1,8 @@
 resource "aws_security_group" "public_nat_server" {
   name   = "public-nat-server"
-  vpc_id = "${aws_vpc.default.id}"
+  vpc_id = aws_vpc.default.id
 
-  tags {
+  tags = {
     Name = "public-nat-server"
   }
 
@@ -17,9 +17,9 @@ resource "aws_security_group" "public_nat_server" {
 
 resource "aws_security_group" "private_nat_server" {
   name   = "private-nat-server"
-  vpc_id = "${aws_vpc.default.id}"
+  vpc_id = aws_vpc.default.id
 
-  tags {
+  tags = {
     Name = "private-nat-server"
   }
 
@@ -28,17 +28,18 @@ resource "aws_security_group" "private_nat_server" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["${aws_subnet.private.cidr_block}"]
+    cidr_blocks = [aws_subnet.private.cidr_block]
   }
 }
 
 resource "aws_network_interface" "private_nat_server" {
-  subnet_id = "${aws_subnet.private.id}"
+  subnet_id = aws_subnet.private.id
 
-  security_groups   = ["${aws_security_group.private_nat_server.id}"]
+  security_groups   = [aws_security_group.private_nat_server.id]
   source_dest_check = false
 
-  tags {
+  tags = {
     Name = "${var.name}-private-nat-server"
   }
 }
+

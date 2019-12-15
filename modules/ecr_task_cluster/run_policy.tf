@@ -12,9 +12,7 @@ data "aws_iam_policy_document" "run_policy" {
       "ecs:RunTask",
     ]
 
-    resources = [
-      "${aws_ecs_task_definition.task.*.arn}",
-    ]
+    resources = aws_ecs_task_definition.task.*.arn
   }
 
   statement {
@@ -29,7 +27,7 @@ data "aws_iam_policy_document" "run_policy" {
       variable = "ecs:cluster"
 
       values = [
-        "${aws_ecs_cluster.default.arn}",
+        aws_ecs_cluster.default.arn,
       ]
     }
   }
@@ -40,8 +38,8 @@ data "aws_iam_policy_document" "run_policy" {
     ]
 
     resources = [
-      "${var.exec_role_arn}",
-      "${var.task_role_arn}",
+      var.exec_role_arn,
+      var.task_role_arn,
     ]
   }
 
@@ -52,7 +50,8 @@ data "aws_iam_policy_document" "run_policy" {
     ]
 
     resources = [
-      "${aws_cloudwatch_log_group.default.arn}",
+      aws_cloudwatch_log_group.default.arn,
     ]
   }
 }
+

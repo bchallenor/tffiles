@@ -1,6 +1,6 @@
 resource "aws_iam_policy" "read_policy" {
   name   = "s3-${aws_s3_bucket.bucket.bucket}-read"
-  policy = "${data.aws_iam_policy_document.read_policy.json}"
+  policy = data.aws_iam_policy_document.read_policy.json
 }
 
 data "aws_iam_policy_document" "read_policy" {
@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "read_policy" {
     ]
 
     resources = [
-      "${aws_s3_bucket.bucket.arn}",
+      aws_s3_bucket.bucket.arn,
     ]
   }
 
@@ -25,3 +25,4 @@ data "aws_iam_policy_document" "read_policy" {
     ]
   }
 }
+

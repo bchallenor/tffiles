@@ -1,8 +1,8 @@
 resource "aws_security_group" "github_client" {
   name   = "github-client"
-  vpc_id = "${aws_vpc.default.id}"
+  vpc_id = aws_vpc.default.id
 
-  tags {
+  tags = {
     Name = "github-client"
   }
 
@@ -11,7 +11,7 @@ resource "aws_security_group" "github_client" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${split(",", data.external.github_meta.result.cidr_blocks)}"]
+    cidr_blocks = split(",", data.external.github_meta.result.cidr_blocks)
   }
 
   # egress: https, to Github
@@ -19,7 +19,7 @@ resource "aws_security_group" "github_client" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["${split(",", data.external.github_meta.result.cidr_blocks)}"]
+    cidr_blocks = split(",", data.external.github_meta.result.cidr_blocks)
   }
 }
 
@@ -35,6 +35,7 @@ data "external" "github_meta" {
   ]
 
   query = {
-    json = "${data.http.github_meta.body}"
+    json = data.http.github_meta.body
   }
 }
+

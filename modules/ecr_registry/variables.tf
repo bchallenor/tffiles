@@ -1,5 +1,7 @@
-variable "name" {}
+variable "name" {
+}
 
 variable "repos" {
-  type = "list"
+  type = list(string)
 }
+

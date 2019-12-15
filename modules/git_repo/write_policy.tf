@@ -1,6 +1,6 @@
 resource "aws_iam_policy" "write_policy" {
   name   = "git-${aws_codecommit_repository.repo.repository_name}-write"
-  policy = "${data.aws_iam_policy_document.write_policy.json}"
+  policy = data.aws_iam_policy_document.write_policy.json
 }
 
 data "aws_iam_policy_document" "write_policy" {
@@ -11,7 +11,8 @@ data "aws_iam_policy_document" "write_policy" {
     ]
 
     resources = [
-      "${aws_codecommit_repository.repo.arn}",
+      aws_codecommit_repository.repo.arn,
     ]
   }
 }
+

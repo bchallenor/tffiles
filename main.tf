@@ -5,13 +5,13 @@ provider "aws" {
 
 provider "aws" {
   alias   = "stable"
-  region  = "${var.stable_region}"
+  region  = var.stable_region
   version = "~> 2.41"
 }
 
 provider "aws" {
   alias   = "local"
-  region  = "${var.local_region}"
+  region  = var.local_region
   version = "~> 2.41"
 }
 
@@ -34,15 +34,15 @@ module "root_zone" {
 
 module "cloud_zone" {
   source       = "./modules/dns_zone"
-  parent_id    = "${module.root_zone.id}"
+  parent_id    = module.root_zone.id
   name         = "cloud.${module.root_zone.name}"
   negative_ttl = 10
 }
 
 module "google_mx" {
   source    = "./modules/dns_google_mx"
-  zone_id   = "${module.root_zone.id}"
-  zone_name = "${module.root_zone.name}"
+  zone_id   = module.root_zone.id
+  zone_name = module.root_zone.name
 }
 
 module "cloudtrail" {
@@ -50,7 +50,7 @@ module "cloudtrail" {
   bucket_name = "cloudtrail-${var.affix}"
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
@@ -64,7 +64,7 @@ module "tfstate_bucket" {
   name   = "tfstate-${var.affix}"
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
@@ -73,7 +73,7 @@ module "photos_bucket" {
   name   = "photos-${var.affix}"
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
@@ -82,7 +82,7 @@ module "backups_bucket" {
   name   = "backups-${var.affix}"
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
@@ -91,7 +91,7 @@ module "annex_archive_bucket" {
   name   = "annex-archive-${var.affix}"
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
@@ -100,7 +100,7 @@ module "annex_photos_bucket" {
   name   = "annex-photos-${var.affix}"
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
@@ -112,7 +112,7 @@ module "artifacts_bucket_stable" {
   noncurrent_version_expiration_days = 31
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
@@ -124,7 +124,7 @@ module "artifacts_bucket_local" {
   noncurrent_version_expiration_days = 31
 
   providers = {
-    "aws" = "aws.local"
+    aws = aws.local
   }
 }
 
@@ -135,7 +135,7 @@ module "nix_cache_bucket_stable" {
   expiration_days = 28
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
@@ -146,27 +146,27 @@ module "tmp_bucket" {
   expiration_days = 1
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
 module "amisync_stable" {
   source      = "./modules/amisync"
   name        = "amisync-stable"
-  bucket_name = "${module.artifacts_bucket_stable.id}"
+  bucket_name = module.artifacts_bucket_stable.id
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
 module "amisync_local" {
   source      = "./modules/amisync"
   name        = "amisync-local"
-  bucket_name = "${module.artifacts_bucket_local.id}"
+  bucket_name = module.artifacts_bucket_local.id
 
   providers = {
-    "aws" = "aws.local"
+    aws = aws.local
   }
 }
 
@@ -181,7 +181,7 @@ module "registry_stable" {
   ]
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
@@ -190,16 +190,16 @@ module "task_cluster_stable" {
 
   name = "nix-build"
 
-  image_names = "${module.registry_stable.image_names}"
+  image_names = module.registry_stable.image_names
 
   cpu    = 2048
   memory = 4096
 
-  exec_role_arn = "${module.registry_stable.exec_role_arn}"
-  task_role_arn = "${module.nix_build_role.arn}"
+  exec_role_arn = module.registry_stable.exec_role_arn
+  task_role_arn = module.nix_build_role.arn
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
@@ -214,28 +214,28 @@ module "registry_local" {
   ]
 
   providers = {
-    "aws" = "aws.local"
+    aws = aws.local
   }
 }
 
 module "vpc_stable" {
   source              = "./modules/vpc"
   name                = "stable"
-  availability_zone   = "${var.stable_availability_zone}"
+  availability_zone   = var.stable_availability_zone
   vpn_ipv6_cidr_block = "fd00::/64"
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
 module "drawbridge_stable" {
   source = "./modules/drawbridge"
   name   = "stable"
-  vpc_id = "${module.vpc_stable.vpc_id}"
+  vpc_id = module.vpc_stable.vpc_id
 
   providers = {
-    "aws" = "aws.stable"
+    aws = aws.stable
   }
 }
 
@@ -244,6 +244,7 @@ module "drawbridge_dev" {
   name   = "dev"
 
   providers = {
-    "aws" = "aws.local"
+    aws = aws.local
   }
 }
+

@@ -1,3 +1,6 @@
-variable "name" {}
+variable "name" {
+}
 
-variable "expiration_days" {}
+variable "expiration_days" {
+}
+
