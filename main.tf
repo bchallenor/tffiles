@@ -1,18 +1,18 @@
 provider "aws" {
   region  = "us-east-1"
-  version = "~> 1.33"
+  version = "~> 2.41"
 }
 
 provider "aws" {
   alias   = "stable"
   region  = "${var.stable_region}"
-  version = "~> 1.33"
+  version = "~> 2.41"
 }
 
 provider "aws" {
   alias   = "local"
   region  = "${var.local_region}"
-  version = "~> 1.33"
+  version = "~> 2.41"
 }
 
 provider "archive" {
