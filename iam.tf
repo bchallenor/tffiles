@@ -19,6 +19,15 @@ module "admin_role" {
   ]
 }
 
+module "chaos_user" {
+  source = "./modules/user"
+  user   = "chaos"
+
+  role_arns = [
+    module.admin_role.arn,
+  ]
+}
+
 module "laptop_user" {
   source = "./modules/user"
   user   = "laptop"
