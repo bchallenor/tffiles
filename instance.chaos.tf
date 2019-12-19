@@ -29,6 +29,7 @@ module "chaos_instance" {
   root_volume_size  = 4
 
   security_group_ids = [
+    module.vpc_stable.https_client_security_group_id,
     module.vpc_stable.github_client_security_group_id,
     module.drawbridge_stable.security_group_id,
   ]
