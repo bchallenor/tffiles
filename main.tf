@@ -15,10 +15,6 @@ provider "aws" {
   version = "~> 2.41"
 }
 
-provider "archive" {
-  version = "~> 1.1"
-}
-
 provider "http" {
   version = "~> 1.0"
 }
