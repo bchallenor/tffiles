@@ -18,6 +18,16 @@ data "aws_iam_policy_document" "assume_role" {
 
   statement {
     actions = [
+      "iam:GetUser",
+    ]
+
+    resources = [
+      "arn:aws:iam::*:user/$${aws:username}",
+    ]
+  }
+
+  statement {
+    actions = [
       "iam:ListMFADevices",
     ]
 
