@@ -60,9 +60,9 @@ module "laptop_annex_user" {
   ]
 }
 
-module "nano_user" {
+module "helios_user" {
   source = "./modules/user"
-  user   = "nano"
+  user   = "helios"
 
   role_arns = [
     module.admin_role.arn,
